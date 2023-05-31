@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<link rel="stylesheet" href="../css/reset-ht.css" />
+	<link rel="stylesheet" href="../css/content.css" />
+	<script type="text/javascript" charset="UTF-8" src="../js/vue.js"></script>
+</head>
+
+<body marginwidth="0" marginheight="0">
+	<div class="container">
+		<div class="public-nav">
+			购物车页面：
+			<ul>
+				<li><a>商品管理</a></li>
+			</ul>
+		</div>
+
+		<div class="neirong">
+			<div class="public-content">
+				<div class="public-content-header">
+					<h3>商品列表</h3>
+				</div>
+				<div class="public-content-cont" id="t1">
+					<table class="public-cont-table" v-for="value in itemq">
+						<tr>
+							<th style="width:10%">商品类型</th>
+							<th style="width:10%">商品名称</th>
+							<th style="width:20%">商品介绍</th>
+							<th style="width:20%">商品价格</th>
+							<th style="width:20%">商品图片</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.type}}</td>
+							<td>{{value.Cname}}</td>
+							<td>{{value.information}}</td>
+							<td>{{value.Price}}</td>
+							<td><img class="thumb" v-bind:src="'../png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_G(value.Cname , value.url)">删除</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="page">
+						<a class="page-btn" href="javascript: window.location.href ='index.html?user=' +user">返回主页</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="UTF-8">
+	var req;
+
+	//查询用户的拍品
+	fetch('http://localhost:8080/VueJava/admin_open?Cname=' + '&flag=', {
+		method: 'Get',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+		.then(data => {
+
+			req = data,
+				console.log(req),
+				Polling();
+		}
+		)
+		.catch(error => console.error(error))
+
+	const vm = new Vue({
+		el: "#t1",
+		data: function () {
+			return {
+				itemq: null,
+
+			}
+		},
+		mounted() {
+			window.Polling = this.Polling;    // 方法赋值给window
+		},
+		methods: {
+
+			Polling() {
+				this.itemq = req,
+					console.log(this.itemq),
+					console.log("对象赋值");
+			},
+			delt_G(fl, f2) {
+				let C1 = fl;
+				let C2 = f2;
+				console.log(C1, C2);
+				fetch('http://localhost:8080/VueJava/admin_open?Cname=' + C1 + '&flag=' + C2)
+					.then(response => response.json())
+				alert('您删除该了商品！！');
+				location.reload();
+			}
+
+		}
+
+	})
+
+</script>
+
+</html>

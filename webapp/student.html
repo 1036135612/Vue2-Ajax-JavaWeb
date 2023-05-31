@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户注册</title>
+<script  type="text/javascript" >
+function student(){
+    var name = document.getElementById("name");
+    var sex = document.getElementById("sex");
+    var age = document.getElementById("age");
+    if(name.value==""){
+      alert("姓名不能为空!");
+      return false;
+    }else if(sex.value.indexOf("女") && sex.value.indexOf("男")){
+       alert("性别应该为“女”或“男”");
+       return false;
+    }else if(age.value=="" || age.value.length>=3){
+       alert("年龄不能为空且小于2位数字!");
+       return false;
+    }
+  }
+</script>
+<style type="text/css">
+     *,input {font-size:11pt;color:black}
+</style>
+</head>
+<body>
+<form action="StudentDps" 
+      method="post" onSubmit=" student();">
+请输入学生信息：
+<table>
+<tr><td>姓名:</td>
+          <td><input type="text" name="name" id="name"></td>
+</tr>
+<tr><td>性别:</td>
+          <td><input type="text" name="sex" id="sex"></td>
+</tr>
+<tr><td>年龄:</td>
+    <td><input type="text" name="age" id="age"></td>
+</tr>
+<tr><td>籍贯:</td>
+          <td><input type="text" name="origin" id="origin"></td>
+</tr>
+<tr><td>住址:</td>
+          <td><input type="text" name="address" id="address"></td>
+</tr>
+
+</table>
+<input type="submit" value="确定">
+<input type="reset" value="重置">
+</form>
+</body>
+</html>

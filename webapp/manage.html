@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<link rel="stylesheet" href="css/reset-ht.css">
+	<link rel="stylesheet" href="css/public.css">
+	<script type="text/javascript" charset="UTF-8" src="js/vue.js"></script>
+</head>
+
+<body>
+	<div class="public-header-warrp">
+		<div class="public-header">
+			<div class="content">
+				<div class="public-header-logo">
+					<a href="javascript: window.location.href ='index.html?user=' +Suser">
+						<i><img src="./images/catlogo.png" alt="MIlogo" title="logo"></i>
+						<h3 class="h3">星璇拍卖网</h3>
+					</a>
+				</div>
+				<div class="public-header-admin fr">
+					<p class="admin-name" id="user" style=" color: #FF0000;"></p>
+					<div class="public-header-fun fr">
+						<a href="admin-log.jsp" class="public-header-man">管理员账户注册</a>
+						<a onclick=" Uhref()" class="public-header-loginout">安全退出</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<!-- 内容展示 -->
+	<div class="public-ifame mt20">
+		<div class="content">
+			<!-- 内容模块头 -->
+			<div class="public-ifame-header">
+				<ul>
+					<li class="ifame-item logo">
+						<div class="item-warrp">
+							<a href="#"><i><img src="./images/catlogo.png" alt="MIlogo" title="logo"></i>
+								<h3 class="logo-title">星璇拍卖网——梦幻之旅</h3>
+								<p class="logo-des">管理员界面</p>
+							</a>
+						</div>
+					</li>
+					<li class="ifame-item">
+						<div class="item-warrp"><span>开发时间:2023/5/1 21:14:01</span></div>
+					</li>
+					<li class="ifame-item">
+						<div class="item-warrp" style="border:none"><span>网站浏览量：谁知道！</span></div>
+					</li>
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+			<!-- 左侧导航栏 -->
+			<div class="public-ifame-leftnav">
+				<div class="public-title-warrp">
+					<div class="public-ifame-title ">
+						<a href="">首页</a>
+					</div>
+				</div>
+				<ul class="left-nav-list">
+					<li class="public-ifame-item">
+						<a href="javascript:;">管理员查看页面</a>
+						<div class="ifame-item-sub">
+							<ul>
+								<li><a href="管理员页面/admin-open-one.html" target="content">拍品列表</a></li>
+								<li><a href="管理员页面/admin-open-two.html" target="content">商品列表</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="public-ifame-item">
+						<a href="javascript:;">商品/拍卖管理</a>
+						<div class="ifame-item-sub">
+							<ul>
+								<li><a href="管理员页面/cate_community.html" target="content">上架商品</a></li>
+								<li><a href="管理员页面/cate_manage.html" target="content">上架拍品</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="public-ifame-item">
+						<a href="javascript:;">用户管理</a>
+						<div class="ifame-item-sub">
+							<ul>
+								<li><a href="管理员页面/admin-open-three.html" target="content">用户的购物车</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- 右侧内容展示部分 -->
+			<div class="public-ifame-content">
+				<iframe name="content" src="main.html" frameborder="0" id="mainframe" scrolling="yes" marginheight="0"
+					marginwidth="0" width="100%" style="height: 700px;"></iframe>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script>
+		var user = urldata("user");
+		console.log(user);
+		sessionStorage.setItem('user', user);
+		var Suser = sessionStorage.getItem('user');
+		console.log("这是一个session:" + Suser);
+		document.getElementById("user").innerHTML = Suser + '！！管理员你好';
+
+		//url参数转化成数组
+		function urldata(data) {
+			var url = decodeURI(window.location.search);
+			var Objs = url.split("?");
+			if (Objs.length > 1) {
+				//取数组第二位从&进行开始切割，数组index默认从0开始，因为split把字符串转换成数组，所以要取第二位，因为第二位是我们要的值
+				var arr = Objs[1].split("&");
+				console.log(arr);
+				var newarr;//建立一个新数组，用来保存我们要的值
+				for (var i = 0; i < arr.length; i++) {
+					//以等号分割后的值丢到arr这个数组
+					newarr = arr[i].split("=");
+					console.log(newarr);
+					if (newarr != null && newarr[0] == data) {
+						//取第二位的值，split和上面一样的原理
+						return newarr[1];
+					}
+				}
+			}
+		}
+
+		function Uhref() {
+			sessionStorage.clear();
+			location.replace('index.html');
+
+		}
+	</script>
+
+	<script>
+		$().ready(function () {
+			var item = $(".public-ifame-item");
+
+			for (var i = 0; i < item.length; i++) {
+				$(item[i]).on('click', function () {
+					$(".ifame-item-sub").hide();
+					if ($(this.lastElementChild).css('display') == 'block') {
+						$(this.lastElementChild).hide()
+						$(".ifame-item-sub li").removeClass("active");
+					} else {
+						$(this.lastElementChild).show();
+						$(".ifame-item-sub li").on('click', function () {
+							$(".ifame-item-sub li").removeClass("active");
+							$(this).addClass("active");
+						});
+					}
+				});
+			}
+		});
+	</script>
+</body>
+
+</html>

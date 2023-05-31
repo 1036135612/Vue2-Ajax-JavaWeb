@@ -1,0 +1,353 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/vue.js"></script>
+
+</head>
+
+<body>
+	<div id="t">
+		<img alt="" v-bind:src="'png/'+commodity.url">
+		<div>
+			<h1>{{commodity.name}}</h1>
+		</div>
+		<div>
+			<h1>{{commodity.information}}</h1>
+		</div>
+		<div>
+			<h1>{{commodity.iPhone}}</h1>
+		</div>
+	</div>
+	<div id="t1">
+
+		<div v-for="value in commodity">
+			<div>
+				<button v-on:click="Polling">点击</button>
+			</div>
+			<!-- <div v-if="flag">
+
+				<img alt="" v-bind:src="'png/'+value.url">
+			</div> -->
+			<div>
+				<img alt="" v-bind:src="'png/'+value.url">
+				<h1>tm:{{value.name}}:{{value.information}}:{{value.iphone}}</h1>
+			</div>
+			<div>{{flag}}</div>
+		</div>
+	</div>
+	<div id="m">
+		<h1 v-for="value in items">tm:{{value.name}}</h1>
+		<p v-for="item in objArr">id:{{item.id}}--------name:{{item.name}}</p>
+	</div>
+
+	<div id="div"></div>
+</body>
+
+<script>
+
+	//不停点击函数
+	var processID = self.setInterval("ajax()", 2000);
+	var reqq;
+	//在页面刷新和关闭的时候触发事件，表示正要去服务器读取新的页面时调用，此时还没开始读取。
+	//检测资源加载
+	/*window.onload = function() 
+	{	
+	   ajax();// 加上这个可以拦截页面关闭，return 只要有返回就可以
+	}*/
+	/* var url = decodeURI(window.location.search);
+	var Objs = url.split("?"); */
+
+
+	//ajax();
+	function ajax() {
+		//  const username = document.getElementById('username').value;
+		//  const password = document.getElementById('password').value;
+
+		//创建对象
+		const xhr = new XMLHttpRequest();
+
+		//true是XHR的异步开启参数，关闭是false
+		xhr.open('get', 'http://localhost:8080/VueJava/began?name=张三', true);
+		//设置响应头，如果参数值中需要‘&’，则必须对其进行编码。
+		xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded ');
+		//发送，‘get’数据包含在‘url’里，所以send（null），‘post’则用send（data）来发送。
+		//xhr.send('username=' + username + '&password=' + password);
+		xhr.send(null);
+
+		//打印状态码
+		//console.log(xhr.readyState);
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState == 4) {
+
+				if (xhr.status >= 200 && xhr.status < 300) {
+
+					//打印状态码
+					// console.log(xhr.readyState);
+					//xhr的两种接收方法,文本数据（字符串）
+					var req = xhr.responseText
+					//xhr的两种接收方法,XML文件
+					//var req = req.responseXML;
+					//alert(req);
+					//弹出返回结果  
+					var req1 = eval("(" + req + ")");
+
+					//result.innerHTML = xhr.response;
+					Pollingg();
+					//change1();      
+					return reqq = req1;
+					//长轮询
+					// ajax();
+				}
+
+			}
+
+		}
+
+	}
+
+	Vue.config.productionTip = false//阻止Vue的开发提示
+	const vm3 = new Vue({
+		el: "#t",
+		data() {
+			return {
+				commodity: reqq,
+				flag: true,
+			}
+		},
+		mounted() {
+			window.Pollingg = this.Polling;    // 方法赋值给window
+
+		},
+		methods: {
+
+			Polling() {
+
+				this.commodity = reqq,
+					console.log("对象赋值");
+				console.log(this.commodity);
+			}
+
+		}
+
+	})
+
+	//var itemq;
+	var req2;
+
+	const vm = new Vue({
+
+		el: '#m',
+		data: {
+			items: [{
+				name: "vue表",
+				slogan: "一个基于vue的PC端表格组件",
+				label: ["vue", "前端", "组件"]
+			}, {
+				name: "npm",
+				slogan: "Node.js 的包管理工具",
+				label: ["JavaScript", "前端"]
+			}],
+			objArr: [{
+				id: 1,
+				name: "Q"
+			}, {
+				id: 2,
+				name: "W"
+			}, {
+				id: 3,
+				name: "E"
+			}, {
+				id: 4,
+				name: "R"
+			}]
+		},
+		methods: {
+
+			a: function () {
+
+			}
+
+		}
+
+	})
+
+	const vm2 = new Vue({
+
+		el: "#t",
+		data() {
+			return {
+				commodity: reqq,
+				//flag: true,
+			}
+
+		},
+		mounted() {
+			window.change = this.change;    // 方法赋值给window
+		},
+		methods: {
+
+			change() {
+				this.commodity = reqq,
+					console.log(reqq);
+				console.log(this.commodity);
+			}
+		},
+
+
+		//     		 watch:{
+		//     			 /* itemq:{
+		//     			   handler(newValue){
+		//     				    console.log("加载");
+		//     					console.log("加载",newValue);
+		//     					this.flag = false 
+
+		//                     } */
+
+		//                     itemq(newValue){
+		//                     	 this.flag=false
+		//                          if(true){
+
+		//                       	   this.$nextTick(()=>{
+		//                       		this.flag=true
+		//                       	   }) 
+
+		//                     }
+
+		//               deep:true
+		//  			  }
+
+		// 		   } 
+
+	})
+
+
+
+	ajax1();
+	function ajax1() {
+		//创建对象
+		const xhr = new XMLHttpRequest();
+		setInterval(function () {
+			Polling();
+			//change();//实时更新外方法
+			//true是XHR的异步开启参数，关闭是false
+			xhr.open('post', 'http://localhost:8080/VueJava/began', true);
+			//设置响应头，如果参数值中需要‘&’，则必须对其进行编码。
+			xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded ');
+			//发送，‘get’数据包含在‘url’里，所以send（null），‘post’则用send（data）来发送。
+			//xhr.send('username=' + username + '&password=' + password);
+
+			xhr.onreadystatechange = function () {
+
+				if (xhr.readyState == 4) {
+
+					if (xhr.status >= 200 && xhr.status < 300) {
+						//打印状态码
+						console.log(xhr.readyState);
+						//xhr的两种接收方法,文本数据（字符串）
+						var req = xhr.responseText
+						//xhr的两种接收方法,XML文件
+						//var req = req.responseXML;
+
+						//将json字符串转换成js对象
+						var req1 = eval("(" + req + ")");
+						//将js对象转换成json格式字符串
+						var a = JSON.stringify(req1);
+						//console.log(req1);
+						//console.log(a);
+						return req2 = req1;
+						//alert(req);
+						//弹出返回结果  		
+						/*  const vm1 = new Vue({
+
+							el: "#t1",
+							data: {
+
+								itemq: req1,
+								
+
+							},
+							mounted() {
+								window.Polling = this.Polling;    // 方法赋值给window
+								
+							},
+							methods: {
+								Polling() {				
+									this.itemq = req2,
+										console.log('对象获取成功');
+										console.log(itemq);						
+								}
+							}
+						})   */
+						//ajax();
+
+						for (var i in req1) {
+
+							div.innerHTML = req1[i].username;
+							div.innerHTML = req1[i].information;
+							div.innerHTML = req1[i].iphone;
+
+						}
+
+					}
+
+				}
+			}
+
+			xhr.send();
+		}, 3000)
+
+	}
+
+
+	const vm1 = new Vue({
+
+		el: "#t1",
+		data: {
+
+			commodity: req2,
+			flag: 0,
+
+
+		},
+		mounted() {
+			window.Polling = this.Polling;    // 方法赋值给window
+
+		},
+		methods: {
+			Polling() {
+				this.commodity = req2,
+					console.log('对象获取成功');
+				console.log(this.commodity);
+			}
+		},
+		watch: {
+			itemq: {
+				handler(newValue) {
+					// 				    console.log("加载"+flag);
+
+					this.flag <= 3 ? this.flag : this.flag = 0;
+					console.log("加载" + this.flag);
+					this.flag++;
+
+					/*  this.flag=false
+						if(true){
+
+						 this.$nextTick(()=>{
+
+						  this.flag=true
+						  }) */
+				},
+				deep: true
+			}
+		}
+
+	})
+
+
+   //Vue.config.productionTip = false//阻止Vue的开发提示
+</script>
+<!-- <script src="static/js/ajax-vue.js"></script> -->
+
+</html>

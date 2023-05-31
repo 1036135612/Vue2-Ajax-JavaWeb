@@ -1,0 +1,34 @@
+.countdown_time>h1 {
+	float: left;
+
+}
+
+.countdown_time {
+	width: 866px;
+	height: 48px;
+	margin: 30px auto;
+	position: relative;
+	right: 100px;
+}
+
+.countdown_time>label {
+	height: 48px;
+	display: block;
+	float: left;
+	line-height: 48px;
+	text-align: center;
+}
+
+.countdown_time>label.countdown_time_item {
+	width: 48px;
+	background: #ff6363;
+	font-size: 26px;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.countdown_time>label.countdown_item_dot {
+	color: #605751;
+	font-size: 26px;
+	font-weight: 600;
+	width: 16px;
+}

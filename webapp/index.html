@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>实时在线拍卖网站</title>
+	<link rel="icon" href="./images/catlogo.ico" type="image/x-icon">
+	<!-- 页面关键字 -->
+	<meta name="keywords" content="拍卖，在线拍卖，拍卖系统" />
+	<!-- 页面的描述 -->
+	<meta name="description" content="基于JAVA、VUE、Ajax实现的实时在线拍卖系统。" />
+
+	<!-- 先引入重置的CSS样式文件 -->
+	<link rel="stylesheet" href="./css/reset.css">
+
+	<!-- 引入字体图标的css文件 -->
+	<link rel="stylesheet" href="./css/iconfont.css">
+
+	<!-- 引入当前页面的CSS文件 -->
+	<link rel="stylesheet" href="./css/index.css">
+	<!-- 引入Vue框架 -->
+	<script type="text/javascript" charset="UTF-8" src="js/vue.js"></script>
+</head>
+<script type="text/javascript" charset="UTF-8">
+
+	var user = urldata("user");
+	if(user!=null && user!='undefined' && user!='null'){
+		console.log("获取的用户名："+user);
+		sessionStorage.setItem('user', user);
+	}else if (sessionStorage.getItem('user') !== null) {
+		var user = sessionStorage.getItem('user');
+		sessionStorage.setItem('user', user);
+		console.log("存放用户名："+user);
+	}  
+	var Suser = sessionStorage.getItem('user');
+	console.log("这是一个session:" + Suser);
+
+	function getUrl() {
+
+		if (user != null && user != 'undefined' && user != '') {
+			window.location.href = "管理员页面/cate_manage.html?user=" + user;
+		} else {
+
+			alert('您还未登录！！')
+		}
+
+	}
+
+	//url参数转化成数组
+	function urldata(data) {
+		var url = decodeURI(window.location.search);
+		var Objs = url.split("?");
+		if (Objs.length > 1) {
+			//取数组第二位从&进行开始切割，数组index默认从0开始，因为split把字符串转换成数组，所以要取第二位，因为第二位是我们要的值
+			var arr = Objs[1].split("&");
+			console.log(arr);
+			var newarr;//建立一个新数组，用来保存我们要的值
+			for (var i = 0; i < arr.length; i++) {
+				//以等号分割后的值丢到arr这个数组
+				newarr = arr[i].split("=");
+				console.log(newarr);
+				if (newarr != null && newarr[0] == data) {
+					//取第二位的值，split和上面一样的原理
+					return newarr[1];
+				}
+			}
+		}
+	}
+</script>
+
+<body>
+	<div class="container">
+		<!-- 顶部导航 start -->
+		<div class="header_bar">
+			<div class="header con_width">
+				<!-- 左侧菜单 -->
+				<div class="header_nav">
+					<ul>
+						<li><a href="#">星璇卖场</a></li>
+						<li><a href="#">舒享服务</a></li>
+						<li><a href="#">有品/好物</a></li>
+						<li><a onclick=" getUrl()" style="color: rgb(255, 0, 149);">我要拍卖</a></li>
+					</ul>
+				</div>
+				<!-- 右侧购物车 -->
+				<div class="header_shopcart">
+					<div class="shopcart_logo">
+						<a onclick="url_ht()"> <i class="iconfont icon-cart"></i> 购物车
+						</a>
+						<div class="shopcart-info">
+							<p>购物车中还没有商品，赶紧选购吧!</p>
+						</div>
+					</div>
+				</div>
+				<!--右侧登录、注册-->
+				<div class="user-auction">
+					<ul>
+						<li><a id="welcome" style="color: rgb(51, 207, 246);"></a></li>
+						<li><a href="hello_log.html">身份验证</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 顶部导航 end -->
+		<!-- 主体导航 start -->
+		<div class="main_nav con_width">
+			<div class="logo">
+				<img src="./images/catlogo.png" alt="MIlogo" title="logo">
+			</div>
+			<!-- 搜索部分 start -->
+			<div class="search_box">
+				<form auction="#">
+					<input type="search" name="search" class="search" />
+					<button>
+						<i class="iconfont icon-sousuo"></i>
+					</button>
+					<!-- 下拉列表内容 -->
+					
+				</form>
+			</div>
+			<!-- 搜索部分 end -->
+		</div>
+		<!-- 主体导航 end -->
+
+		<!-- 定义分类菜单和banner图 start -->
+		<div class="home_container con_width">
+			<!-- 定义菜单 -->
+			<div class="menu_list">
+				<ul>
+					<li><a href="#">手机 电话卡<span class="arrow">&gt;</span></a>
+						<div class="menu_list_item">
+							<ul class="menu_list_goods menu_col_4">
+								<li><a href="#"> <img src="./images/note3-80-2.png" alt=""> <span>小米Note 3</span>
+									</a></li>
+
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">电视 盒子<span class="arrow">&gt;</span></a>
+						<div class="menu_list_item">
+							<ul class="menu_list_goods menu_col_3">
+								<li><a href="#"> <img src="./images/note3-80-2.png" alt=""> <span>小米Note 3</span>
+									</a></li>
+
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">笔记本 平板<span class="arrow">&gt;</span></a>
+						<div class="menu_list_item">
+							<ul class="menu_list_goods menu_col_2">
+								<li><a href="#"> <img src="./images/note3-80-2.png" alt=""> <span>小米Note 3</span>
+									</a></li>
+
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">家电 插线板<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">出行 穿戴<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">智能 路由器<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">电源 配件<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">个护 儿童<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">耳机 音箱<span class="arrow">&gt;</span></a></li>
+					<li><a href="#">生活 箱包<span class="arrow">&gt;</span></a></li>
+				</ul>
+			</div>
+			<!-- 定义banner -->
+			<div id="banner">
+				<ul>
+					<li class="active">
+						<a href="#"><img src="./images/file-11.png" alt="小米" title="小米"></a>
+					</li>
+					<li>
+						<a href="#"><img src="./images/hhh.png" alt="小米" title="小米"></a>
+					</li>
+				</ul>
+				<div id="circle-list">
+					<ul>
+						<li class="active-circle"></li>
+						<li></li>
+					</ul>
+				</div>
+				<div id="banner-left" class="banner-arrow">&lt;</div>
+				<div id="banner-right" class="banner-arrow">&gt;</div>
+			</div>
+		</div>
+		<!-- 定义分类菜单和banner图 end -->
+
+		<!-- 定义推荐部分 start -->
+		<div class="recommend con_width">
+			<div class="recommend_left">
+				<ul>
+					<li><a href="#"><i class="iconfont icon-shouji"></i><span>选购手机</span></a>
+					</li>
+					<li><a href="#"><i class="iconfont icon-lihe"></i><span>选购手机</span></a>
+					</li>
+					<li><a href="#"><i class="iconfont icon-Fma"></i><span>选购手机</span></a>
+					</li>
+				</ul>
+				<ul>
+					<li><a href="#"><i class="iconfont icon-shoujiqia"></i><span>选购手机</span></a></li>
+					<li><a href="#"><i class="iconfont icon-yijiuhuanxin"></i><span>选购手机</span></a></li>
+					<li><a href="#"><i class="iconfont icon-huafeichongzhi"></i><span>选购手机</span></a></li>
+				</ul>
+			</div>
+			<div class="recommend_right">
+				<ul>
+					<li><a href=""><img src="./images/file-3.png" title="" alt="" /></a></li>
+					<li><a href=""><img src="./images/file-1.jpeg" title="" alt="" /></a></li>
+					<li><a href=""><img src="./images/file 4.jpeg" title="" alt="" /></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 定义推荐部分 end -->
+
+		<!--  start -->
+		<div class="flashover con_width">
+			<div id="t1">
+				<h1 class="list_title">
+					在线闪购
+					<div class="flashover_a">
+						<a v-on:click="updata(home,end)">&lt;</a>
+						<a v-on:click="dndata(home,end,itemq.length)">&gt;</a>
+					</div>
+				</h1>
+				<div class="flashover_list">
+					<div class="flashover_item countdown goodlist4">
+						<p class="countdown_title">时间场</p>
+						<i class="iconfont icon-shandian"></i>
+						<p class="countdown_desc">实时播报更新</p>
+						<div class="countdown_time">
+							<label class="countdown_time_item" id="h"></label> <label
+								class="countdown_item_dot">:</label>
+							<label class="countdown_time_item" id="m"></label> <label
+								class="countdown_item_dot">:</label>
+							<label class="countdown_time_item" id="s"></label>
+						</div>
+					</div>
+
+					<div class="flashover_item_con" id="shangou">
+						<div class="flashover_item_con_div" id="shangouCon" style="left: 0px">
+
+							<div v-for="value in itemq.slice(home,end)"
+								v-bind:class="'flashover_item flashover_goodlist goodlist'+(x < 4 ? ++x : x = 1)">
+
+								<a alt="米兔指尖积木 白色" title="米兔指尖积木 白色"
+									v-bind:href="'open-find.html?name='+value.Lname+'&user='+user">
+									<div class="goodlist_content">
+										<img v-bind:src="'png/'+value.url" alt="">
+										<p class="good_title">{{value.Lname}}</p>
+										<p class="good_desc">{{value.wraparound}}</p>
+										<p class="good_price">
+											<label>{{value.price}}</label>
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 小米闪购 end -->
+
+			<!-- 广告 start -->
+			<div class="ad_container con_width">
+				<div class="win_top2">
+					<h1>够燃购狂欢</h1>
+				</div>
+			</div>
+
+			<!-- 产品列表 start -->
+			<div class="goods">
+				<!-- 家电 start -->
+				<div class="wiring con_width clearfix">
+					<h1 class="list_title" id="houseElectricalTitle">
+						家电
+						<ul>
+							<li class=""><a href="#">热门</a></li>
+						</ul>
+					</h1>
+					<div class="wiring_left">
+						<a href="#"><img src="./images/qqq.png" /></a>
+					</div>
+					<div class="wiring_right" id="houseElectricalDiv">
+						<!-- 热门 -->
+						<div class="wiring_right_con">
+							<div class="goods_item_list">
+								<div class="goodlist_content">
+									<label>享8折</label> <a href="#"><img src="./images/good1.png" alt=""></a>
+									<p class="good_title">
+										<a href="#">热门拍卖品、商品</a>
+									</p>
+									<p class="good_desc">4K超高清屏 / 真四核64位高性能处理器</p>
+									<p class="good_price">
+										价格<label>4499元</label>
+									</p>
+								</div>
+								<div class="goods_item_list_desc">
+									<p class="goods_item_list_desc_con">星璇买场给我惊喜，昨天下午下单，第二天上午就送到家啦...</p>
+									<span> 来自于 开发者（***） 的评价</span>
+								</div>
+							</div>
+							<div class="goods_item_list">
+								<div class="goodlist_content">
+									<label class="new_good">新品</label> <a href="#"><img src="./images/good1.png"
+											alt=""></a>
+									<p class="good_title">
+										<a href="#">热门拍卖品、商品</a>
+									</p>
+									<p class="good_desc">4K超高清屏 / 真四核64位高性能处理器</p>
+									<p class="good_price">
+										价格<label>4499元</label>
+									</p>
+								</div>
+								<div class="goods_item_list_desc">
+									<p class="goods_item_list_desc_con">星璇买场给我惊喜，昨天下午下单，第二天上午就送到家啦...</p>
+									<span> 来自于 开发者（***） 的评价</span>
+								</div>
+							</div>
+							<div class="goods_item_list">
+								<div class="goodlist_content">
+									<label>享7折</label> <a href="#"><img src="./images/good1.png" alt=""></a>
+									<p class="good_title">
+										<a href="#">热门拍卖品、商品</a>
+									</p>
+									<p class="good_desc">4K超高清屏 / 真四核64位高性能处理器</p>
+									<p class="good_price">
+										价格<label>4499元</label>
+									</p>
+								</div>
+								<div class="goods_item_list_desc">
+									<p class="goods_item_list_desc_con">星璇买场给我惊喜，昨天下午下单，第二天上午就送到家啦...</p>
+									<span> 来自于 开发者（***） 的评价</span>
+								</div>
+							</div>
+							<div class="goods_item_list_last">
+								<div class="goods_item_last_list clearfix">
+									<div class="goods_item_last_list_left">
+										<a href="#">鲸鱼水世界</a> <span>xxx</span>
+									</div>
+									<div class="goods_item_last_list_right">
+										<img src="./images/file-2.jpeg" />
+									</div>
+								</div>
+								<div class="goods_item_last_list clearfix">
+									<div class="goods_item_last_list_left">
+										<a href="#" class="more">
+											<p>浏览更多</p> <label>热门</label>
+										</a>
+									</div>
+									<div class="goods_item_last_list_right">
+										<a href="#"><i class="iconfont icon-you"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- 家电 end -->
+
+				<!-- 广告 start -->
+				<div class="ad_container con_width">
+					<div class="win_top2">
+						<h1>购物狂欢</h1>
+					</div>
+				</div>
+				<!-- 广告 end -->
+
+
+				<!-- 手机 start -->
+				<div class="flashover con_width clearfix">
+					<h1 class="list_title">
+						手机<a href="">查看更多<i class="iconfont icon-xiangyoujiantou"></i></a>
+					</h1>
+					<div class="goods_item_left1">
+						<a href="#"><img src="./images/hhh1.png" /></a>
+					</div>
+					<div class="goods_item_right">
+						<div id="t2">
+							<div class="goods_item_list" v-for="value in itemq">
+								<div class="goodlist_content">
+									<label>占位</label> <a
+										v-bind:href="'open-commodity.html?name='+value.Cname+'&user='+user">
+										<img v-bind:src="'png/'+value.url" alt=""></a>
+									<p class="good_title">
+										<a>{{value.Cname}}</a>
+									</p>
+									<p class="good_desc">{{value.information}}</p>
+									<p class="good_price">￥{{value.Price}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 手机 end -->
+
+			</div>
+			<!-- 产品列表 end -->
+
+			<!-- 底部 start -->
+			<div class="footer">
+
+				<!-- 底部列表 end-->
+				<!-- 底部说明 start -->
+				<div class="footer_desc">
+					<div class="footer_desc_con con_width">
+						<div class="logo">
+							<img src="./images/catlogo.png" alt="MIlogo" title="小米官网">
+						</div>
+					</div>
+				</div>
+				<!-- 底部说明 end -->
+			</div>
+			<!-- 底部 end -->
+		</div>
+</body>
+<script type="text/javascript" charset="UTF-8">
+	if (user.length != 0 && user!='undefined' && user!='null') {
+		document.getElementById("welcome").innerHTML = "欢迎用户" + " ' " + user + " ' ";
+
+	}
+</script>
+<script type="text/javascript" charset="utf-8" src="./js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/index.js"></script>
+
+
+</html>

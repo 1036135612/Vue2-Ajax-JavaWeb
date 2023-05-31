@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<link rel="stylesheet" href="../css/reset-ht.css" />
+	<link rel="stylesheet" href="../css/content.css" />
+	<script type="text/javascript" charset="UTF-8" src="../js/vue.js"></script>
+</head>
+
+<body marginwidth="0" marginheight="0">
+	<div class="container">
+		<div class="public-nav">
+			购物车页面：
+			<ul>
+				<li><a>拍品管理</a>--</li>
+			</ul>
+		</div>
+
+		<div class="neirong">
+			<div class="public-content">
+				<div class="public-content-header">
+					<h3>拍品列表</h3>
+				</div>
+				<div class="public-content-cont" id="t2">
+					<table class="public-cont-table" v-for="value in itemq">
+						<tr>
+							<th style="width:10%">拍品类型</th>
+							<th style="width:10%">拍品名称</th>
+							<th style="width:20%">拍品简介</th>
+							<th style="width:20%">拍品价格</th>
+							<th style="width:20%">缩略图</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.type}}</td>
+							<td>{{value.Lname}}</td>
+							<td>{{value.wraparound}}</td>
+							<td>{{value.LPrice}}</td>
+							<td><img class="thumb" v-bind:src="'../png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_P(value.Lname , value.url)">不要了</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="page">
+						<a class="page-btn" href="javascript: window.location.href ='index.html?user=' +user">返回主页</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="UTF-8">
+	var reqq;
+
+	//查询用户的商品
+	fetch('http://localhost:8080/VueJava/admin_open?Lname=' + '&flag=', {
+		method: 'Post',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data),
+				reqq = data,
+				Pollingg();
+		}
+		)
+		.catch(error => console.error(error))
+
+	const vmm = new Vue({
+		el: "#t2",
+		data: function () {
+			return {
+				itemq: null,
+
+			}
+		},
+		mounted() {
+			window.Pollingg = this.Polling;    // 方法赋值给window
+		},
+		methods: {
+
+			Polling() {
+				this.itemq = reqq,
+					console.log(this.itemq),
+					console.log("对象赋值");
+			},
+			delt_P(f1, f2) {
+				let L1 = f1;
+				let L2 = f2;
+				console.log(f2);
+
+				fetch('http://localhost:8080/VueJava/admin_open?Lname=' + L1 + '&flag=' + L2, {
+					method: 'Post',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					// body: JSON.stringify({
+					// 	user: user,
+					// 	flag: f2
+					// })
+				})
+					.then(response => response.json())
+					.catch(error => console.error(error))
+				alert('该拍品删除成功！！');
+				location.reload();
+			}
+		}
+
+	})
+</script>
+
+</html>

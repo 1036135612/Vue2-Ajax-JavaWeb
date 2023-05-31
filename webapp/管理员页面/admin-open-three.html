@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>用户购物车管理</title>
+	<link rel="stylesheet" href="../css/reset-ht.css" />
+	<link rel="stylesheet" href="../css/content.css" />
+	<script type="text/javascript" charset="UTF-8" src="../js/vue.js"></script>
+</head>
+
+<body marginwidth="0" marginheight="0">
+	<div class="container">
+		<div class="public-nav">
+			用户购物车管理页面：
+
+		</div>
+
+		<div class="neirong">
+			<div class="public-content">
+				<div class="public-content-header">
+					<h3>用户商品总列表</h3>
+				</div>
+				<div class="public-content-cont" id="t2">
+					<table class="public-cont-table" v-for="value in itemq" v-if="value.Cname!=null">
+						<tr>
+							<th style="width:10%">商品所属人</th>
+							<th style="width:10%">商品名称</th>
+							<th style="width:20%">商品简介</th>
+							<th style="width:20%">商品价格</th>
+							<th style="width:20%">缩略图</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.name}}</td>
+							<td>{{value.Cname}}</td>
+							<td>{{value.information}}</td>
+							<td>{{value.Price}}</td>
+							<td><img class="thumb" v-bind:src="'../png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_P(value.name , value.Cname)">移除</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<table class="public-cont-table" v-for="value in itemq" v-if="value.Lname!=null">
+						<tr>
+							<th style="width:10%">拍品所属人</th>
+							<th style="width:10%">拍品名称</th>
+							<th style="width:20%">拍品简介</th>
+							<th style="width:20%">拍品价格</th>
+							<th style="width:20%">缩略图</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.name}}</td>
+							<td>{{value.Lname}}</td>
+							<td>{{value.wraparound}}</td>
+							<td>{{value.LPrice}}</td>
+							<td><img class="thumb" v-bind:src="'../png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_P(value.name , value.Lname)">移除</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="UTF-8">
+	var reqq;
+
+	//查询用户购物车的商品
+	fetch('http://localhost:8080/VueJava/Open_three', {
+		method: 'Post',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data),
+				reqq = data,
+				Pollingg();
+		}
+		)
+		.catch(error => console.error(error))
+
+	const vmm = new Vue({
+		el: "#t2",
+		data: function () {
+			return {
+				itemq: null,
+
+			}
+		},
+		mounted() {
+			window.Pollingg = this.Polling;    // 方法赋值给window
+		},
+		methods: {
+
+			Polling() {
+				this.itemq = reqq,
+					console.log(this.itemq),
+					console.log("对象赋值");
+			},
+			delt_P(f1, f2) {
+				let L1 = f1;
+				let L2 = f2;
+				console.log(f2);
+
+				fetch('http://localhost:8080/VueJava/Open_three?name=' + L1 + '&fname=' + L2, {
+					method: 'Get',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					// body: JSON.stringify({
+					// 	user: user,
+					// 	flag: f2
+					// })
+				})
+					.then(response => response.text())
+					.then(data =>{
+				      	if(data!=null){
+						   alert(data),
+						   location.reload()
+					  }
+					 }
+					)
+					.catch(error => console.error(error))
+
+			}
+		}
+
+	})
+</script>
+
+</html>

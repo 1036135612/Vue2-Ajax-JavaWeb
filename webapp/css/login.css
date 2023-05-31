@@ -1,0 +1,153 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+input {
+	outline: none;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	background: linear-gradient(to right, rgb(247, 209, 215),
+		rgb(191, 227, 241));
+	/*从左到右的渐变*/
+}
+
+.box {
+	width: 1050px;
+	height: 600px;
+	display: flex;
+	position: relative;
+	/* background-color: #fff; */
+	margin: auto;
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, .6);
+	box-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+}
+
+.pre-box {
+	width: calc(1050px/ 2);
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+	border: 4px;
+	background-color: #DFD9E3;
+	box-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+	transition: 0.6s ease-in-out;
+}
+
+.pre-box h1 {
+	margin-top: 150px;
+	text-align: center;
+	letter-spacing: 5px;
+	color: white;
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+}
+
+.pre-box p {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+}
+
+.img-box {
+	width: 200px;
+	height: 200px;
+	margin: 20px auto;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+}
+
+.img-box img {
+	width: 100%;
+	transition: 0.6s;
+}
+
+.login-form, .register-form {
+	flex: 1;
+	height: 100%;
+}
+
+.title-box {
+	height: 300px;
+	line-height: 500px;
+}
+
+.title-box h1 {
+	text-align: center;
+	color: white;
+	letter-spacing: 5px;
+	text-shadow: 4px 4px 3px rgba(0, 0, 0, .1);
+}
+
+.longin-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+input {
+	width: 60%;
+	height: 40px;
+	margin-bottom: 20px;
+	text-indent: 4px;
+	border: 1px solid #b0cfe9;
+	border-radius: 4px;
+}
+
+input:focus {
+	color: #b0cfe9;
+}
+
+input:focus::placeholder {
+	opacity: 0;
+}
+
+.btu-box {
+	display: flex;
+	justify-content: center;
+}
+
+button {
+	width: 100px;
+	height: 30px;
+	margin: 0 7px;
+	line-height: 30px;
+	border: none;
+	border-radius: 4px;
+	background-color: #b0cfe9;
+	color: white;
+}
+
+button:hover {
+	cursor: pointer;
+	opacity: .8;
+}
+
+.btu-box p {
+	height: 30%;
+	line-height: 30%;
+	font-size: 14px;
+	color: rgb(255, 255, 255);
+}
+
+.btu-box p:hover {
+	cursor: pointer;
+	border-bottom: 1px solid white;
+}

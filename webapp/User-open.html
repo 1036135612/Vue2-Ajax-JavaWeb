@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<link rel="stylesheet" href="css/reset-ht.css" />
+	<link rel="stylesheet" href="css/content.css" />
+	<script type="text/javascript" charset="UTF-8" src="js/vue.js"></script>
+</head>
+
+<body marginwidth="0" marginheight="0">
+	<div class="container">
+		<div class="public-nav">
+			购物车页面：
+			<ul>
+				<li class="active"><a>你的拍品</a>--</li>
+				<li><a>你的商品</a></li>
+			</ul>
+		</div>
+
+		<div class="neirong">
+			<div class="public-content" style="display:block">
+				<div class="public-content-header">
+					<h3>拍品浏览</h3>
+				</div>
+				<div class="public-content-cont" id="t2">
+					<table class="public-cont-table" v-for="value in itemq">
+						<tr>
+							<th style="width:10%">拍品类型</th>
+							<th style="width:10%">拍品名称</th>
+							<th style="width:20%">拍品简介</th>
+							<th style="width:20%">拍品价格</th>
+							<th style="width:20%">缩略图</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.type}}</td>
+							<td>{{value.Lname}}</td>
+							<td>{{value.wraparound}}</td>
+							<td>{{value.LPrice}}</td>
+							<td><img class="thumb" v-bind:src="'png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_P(value.Lname)">不要了</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="page">
+						<a class="page-btn" href="javascript: window.location.href ='index.html?user=' +user">返回主页</a>
+					</div>
+				</div>
+			</div>
+			<div class="public-content" style="display: none;">
+				<div class="public-content-header">
+					<h3>商品浏览</h3>
+				</div>
+				<div class="public-content-cont" id="t1">
+					<table class="public-cont-table" v-for="value in itemq">
+						<tr>
+							<th style="width:10%">商品类型</th>
+							<th style="width:10%">商品名称</th>
+							<th style="width:20%">商品介绍</th>
+							<th style="width:20%">商品价格</th>
+							<th style="width:20%">商品图片</th>
+							<th style="width:20%">操作</th>
+						</tr>
+						<tr>
+							<td>{{value.type}}</td>
+							<td>{{value.Cname}}</td>
+							<td>{{value.information}}</td>
+							<td>{{value.Price}}</td>
+							<td><img class="thumb" v-bind:src="'png/'+value.url" /></td>
+							<td>
+								<div class="table-fun">
+									<a v-on:click="delt_G(value.Cname)">删除</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="page">
+						<a class="page-btn" href="javascript: window.location.href ='index.html?user=' +user">返回主页</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" charset="UTF-8" src="js/user-shopping.js"></script>
+<script>
+	var lis = document.querySelector('ul').querySelectorAll('li');
+	var divs = document.querySelector('.neirong').querySelectorAll('.public-content');
+	for (var i = 0; i < lis.length; i++) {
+		lis[i].setAttribute('index', i);
+		lis[i].onclick = function () {
+			for (var i = 0; i < lis.length; i++) {
+				lis[i].className = '';
+			}
+			this.className = 'active';
+			var index = this.getAttribute('index');
+			for (var i = 0; i < divs.length; i++) {
+				divs[i].style.display = 'none';
+			}
+			divs[index].style.display = 'block';
+		}
+	}
+</script>
+
+</html>

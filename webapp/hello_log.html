@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Copmatible" content="IE-edge">
+    <meta name="viewport" content="windth-device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.slim.min.js"></script>
+    <title>登录</title>
+</head>
+
+<body>
+    <div class="box">
+        <div class="pre-box">
+            <h1>Welcome</h1>
+            <p>JOIN US!</p>
+            <div class="img-box">
+                <img src="./png/hhcat.png" alt="">
+            </div>
+        </div>
+        <div class="register-form">
+            <div class="title-box">
+                <h1>注册</h1>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="用户名" id="Name">
+                <input type="password" placeholder="密码" id="Paw">
+                <input type="password" placeholder="确认密码" id="Pawd">
+            </div>
+            <div class="btu-box">
+                <button onclick="btu()">注册</button>
+                <p onclick="myswitch()">已有账号？去登录</p>
+            </div>
+        </div>
+        <div class="login-form">
+            <div class="title-box">
+                <h1>登录</h1>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="用户名" id="username">
+                <input type="password" placeholder="密码" id="password">
+            </div>
+            <div class="btu-box">
+                <button onclick="btuPost()">登录</button>
+                <p onclick="myswitch()">没有账号？去注册</p>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+
+        let flag = true
+        const myswitch = () => {
+            if (flag == true) {
+                $(".pre-box").css("transform", "translatex(100%")
+                $(".pre-box").css("background-color", "#CBDFEB")
+                $("img").attr("src", "./png/hhhcat.png")
+
+
+            } else {
+                $(".pre-box").css("transform", "translatex(0%")
+                $(".pre-box").css("background-color", "#DFD9E3")
+                $("img").attr("src", "./png/hhcat.png")
+                //  flag = true
+            }
+            flag = !flag
+        }
+        function btu() {
+
+            const Name = document.getElementById('Name').value;
+            const Paw = document.getElementById('Paw').value;
+            const Pawd = document.getElementById('Pawd').value;
+
+            if (Paw == Pawd) {
+                fetch('http://localhost:8080/VueJava/Req_commodity?Name=' + Name + '&Paw=' + Paw, {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // body: JSON.stringify({
+                    //     Name: Name,
+                    //     Paw: Paw
+                    // })
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data)
+                    }
+                    )
+                    .catch(error => console.error(error))
+            } else {
+                alert('密码不一致，请重新输入！！');
+            }
+        }
+
+
+
+        //获取button元素，函数后加[int]--‘int’要获取的对象位置
+        // const btu = document.getElementsByTagName("button")[1];
+        // const btu = document.getElementsByTagName("button");获取所有‘button’标签内容为一个数组
+
+
+        //XHR的GET方法
+        function btuGet() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            alert(username);
+            //创建对象
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('get', 'http://localhost:8080/VueJava/Userlogo?username=' + username + '&password=' + password);
+            //发送，‘get’数据包含在‘url’里，所以send（null），‘post’则用send（data）来发送。
+            xhr.send(null);
+            //打印状态码
+            console.log(xhr.readyState);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status >= 200 && xhr.status < 300) {
+
+                        //打印状态码
+                        console.log(xhr.readyState);
+                        //xhr的两种接收方法,文本数据（字符串）
+                        var req = xhr.responseText
+                        //xhr的两种接收方法,XML文件
+                        //var req = req.responseXML;
+                        console.log(req);
+                        alert(req);
+                        //弹出返回结果  
+                        // result.innerHTML = xhr.response;
+                    }
+                }
+            }
+        }
+
+        //XHR的POST方法
+        function btuPost() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            //创建对象
+            const xhr = new XMLHttpRequest();
+
+            //true是XHR的异步开启参数，关闭是false
+            xhr.open('post', 'http://localhost:8080/VueJava/Userlogo', true);
+            //设置响应头，如果参数值中需要‘&’，则必须对其进行编码。
+            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded ');
+            //发送，‘get’数据包含在‘url’里，所以send（null），‘post’则用send（data）来发送。
+            xhr.send('username=' + username + '&password=' + password);
+            //打印状态码
+            console.log(xhr.readyState);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status >= 200 && xhr.status < 300) {
+
+                        //打印状态码
+                        console.log(xhr.readyState);
+                        //xhr的两种接收方法,文本数据（字符串）
+                        var req = xhr.responseText
+                        //xhr的两种接收方法,XML文件
+                        //var req = req.responseXML;                
+                        var arr = req.split('\n');//字符串分割方法
+                        var req1 = eval("(" + arr[1] + ")");
+                        //console.log(arr);
+                        //const Json = JSON.stringify();                                
+                        console.log(req1);
+                        console.log(arr);
+
+                        alert(arr[0]);
+
+                        //弹出返回结果  
+                        //result.innerHTML = xhr.response;
+                        switch (Number(arr[2])) {
+                            case 0:
+                                console.log("管理员");
+                                window.location.href = "login.jsp?user=" + req1 + "&flag=" + true;
+                                break;
+                            case 1:
+                                console.log("普通");
+                                window.location.href = "login.jsp?user=" + req1 + "&flag=" + false;
+                                //重定向后不能返回
+                                //window.location.replace("login.jsp?user=" + req1);
+                                break;
+
+                        }
+                    }
+                }
+            }
+        }
+       // Vue.config.productionTip = false//阻止Vue的开发提示
+    </script>
+
+</body>
+
+</html>

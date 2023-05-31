@@ -1,0 +1,235 @@
+/* -----------------------------------
+Template: Sa Ecommerce html template
+
+NOTE: This is Header style file. All Header related style included in this file.
+
+--------------------------------------*/
+
+/*Header top css*/
+.header-bottom,.header-top {
+  position: relative;
+}
+.search-bar input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -webkit-border-bottom-colors: none;
+    -webkit-border-left-colors: none;
+    -webkit-border-right-colors: none;
+    -webkit-border-top-colors: none;
+    -ms-border-bottom-colors: none;
+    -ms-border-left-colors: none;
+    -ms-border-right-colors: none;
+    -ms-border-top-colors: none;
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border-color: currentcolor currentcolor #cccccc;
+    -o-border-image: none;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    color: #909090;
+    height: 35px;
+    padding: 0;
+    width: 100%;
+}
+.search-bar {
+  display: inline-block;
+  position: relative;
+  width: 270px;
+}
+.search-bar button {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #909090;
+    font-size: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.search-bar input:focus {
+    border-color: #606060;
+}
+
+.header-right-bar ul li {
+    display: inline-block;
+    font-size: 24px;
+    margin-right: 37px;
+}
+.header-right-bar ul li:hover > a{
+  color: #303030;
+}
+.header-right-bar ul li a {
+    color: #909090;
+    position: relative;
+}
+.header-right-bar ul li:last-child {
+    margin-right: 0;
+}
+.header-right-bar ul li a span {
+    background: #606060 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 12px;
+    height: 18px;
+    position: absolute;
+    right: -5px;
+    text-align: center;
+    width: 18px;
+    top: -5px;
+}
+.header-right-bar {
+  margin-right: 12px;
+}
+/*Header bottom css*/
+.menu ul li {
+    display: inline-block;
+    margin-left: 40px;
+    position: relative;
+}
+.menu ul li a {
+  color: #909090;
+  display: block;
+  text-transform: uppercase;
+  padding: 41px 0;
+}
+.menu ul li:hover a {
+    color: #606060;
+}
+header.header {
+  padding-top: 37px;
+}
+.product-filter-menu li {
+    color: #909090;
+    cursor: pointer;
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 20px;
+    text-transform: uppercase;
+}
+.product-filter-menu li:first-child {
+    margin-left: 0;
+}
+.product-filter-menu {
+    padding-bottom: 70px;
+}
+.product-filter-menu li.active {
+    background: #606060 none repeat scroll 0 0;
+    color: #ffffff;
+}
+/*-------------
+    header 2 css here
+-------------*/
+.header-2 .menu {
+  padding: 0;
+}
+header.header.header-2 {
+  padding-top: 0;
+}
+.header-2 .menu ul li a {
+  padding: 50px 0;
+}
+.header-2 .logo {
+  padding: 35px 0;
+}
+.header-2 .header-right-bar {
+  padding: 43px 10px 43px 0;
+}
+header.header.header-2 {
+  padding: 0 55px;
+}
+/*----
+    Navigation css here
+------*/
+.menu ul li ul.dropdown_menu {
+  background: #fff none repeat scroll 0 0;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  padding: 20px 15px 20px 20px;
+  position: absolute;
+  top: 110%;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  visibility: hidden;
+  width: 220px;
+  z-index: 999;
+}
+.menu ul li:hover ul.dropdown_menu {
+  top: 100%;
+  opacity: 1;
+  visibility: visible;
+}
+.menu ul li ul.dropdown_menu li a {
+  color: #909090;
+  display: block;
+  font-size: 12px;
+  padding: 0 0 15px;
+  position: relative;
+  text-transform: uppercase;
+}
+.menu ul li ul.dropdown_menu li:last-child a {
+  padding: 0;
+}
+.menu ul li ul.dropdown_menu li {
+    display: block;
+    margin: 0;
+    text-align: left;
+}
+.menu ul li ul.dropdown_menu li a::before {
+    background: #333 none repeat scroll 0 0;
+    content: "";
+    height: 2px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    -webkit-transition: all 0.1s ease 0s;
+    transition: all 0.1s ease 0s;
+    width: 10px;
+}
+.menu ul li ul.dropdown_menu li:hover a::before {
+    opacity: 1
+}
+.menu ul li ul.dropdown_menu li:hover a {
+    padding-left: 15px;
+}
+.menu ul li ul.dropdown_menu li a:hover{
+  color: #606060;
+}
+.sticky {
+  -webkit-animation: 600ms ease-in-out 0s normal none 1 running fadeInDown;
+  animation: 600ms ease-in-out 0s normal none 1 running fadeInDown;
+  -webkit-box-shadow: 3px 0 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.35);
+  left: 0;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  background: #fff;
+}
+.header-2.sticky .menu ul li a {
+  padding: 35px 0;
+}
+.header-2.sticky .header-right-bar {
+  padding: 28px 10px 28px 0;
+}
+.header-2.sticky .logo {
+  padding: 20px 0;
+}
+.sticky .menu ul li ul.dropdown_menu li a {
+    padding: 0 0 15px;
+}
+.sticky .menu ul li ul.dropdown_menu li:last-child a {
+    padding-bottom: 0;
+}
+.sticky .menu ul li ul.dropdown_menu li:hover a {
+  padding-left: 15px;
+}
+
+
+
+
